@@ -1,5 +1,4 @@
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,6 +11,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.net.URL;
+import java.awt.Toolkit;
 
 import javax.swing.*;
 
@@ -103,7 +104,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void paintComponent(Graphics g) {
-     
+     Image backgroundImage; 
+     URL imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
+
+     if (imageUrl != null) {
+            // This is the cleanest way to get an AWT Image object from a URL
+            backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
+        } else {
+            System.err.println("Image resource not found. Check path: /src/main/java/com/example/");
+        }
+    
+
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square sq = board[x][y];
@@ -116,8 +127,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     	if (currPiece != null) {
             if ((currPiece.getColor() && whiteTurn)
                     || (!currPiece.getColor()&& !whiteTurn)) {
-                final Image img = currPiece.getImage();
-                g.drawImage(img, currX, currY, null);
+               // final Image img = currPiece.getImage();
+                g.drawImage(backgroundImage, currX, currY, null);
             }
         }
         
