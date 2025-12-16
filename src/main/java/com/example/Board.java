@@ -33,6 +33,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = "wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = "wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = "bpawn.png";
+
+    private static final String path = "/src/main/java/com/example/";
 	
 	// Logical and graphical representations of board
 	private final Square[][] board;
@@ -64,6 +66,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
       //for (.....)  
 //        	populate the board with squares here. Note that the board is composed of 64 squares alternating from 
 //        	white to black.
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                boolean isWhite = (x + y) % 2 == 0;
+                Square square = new Square(this,isWhite, x, y);
+                board[x][y] = square;
+                this.add(square);
+            }
+        }
 
         initializePieces();
 
@@ -80,7 +90,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//set up the board such that the black pieces are on one side and the white pieces are on the other.
 	//since we only have one kind of piece for now you need only set the same number of pieces on either side.
 	//it's up to you how you wish to arrange your pieces.
-    private void initializePieces() {
+    void initializePieces() {
     	
     	board[0][0].put(new Piece(true, RESOURCES_WKING_PNG));
 
@@ -131,6 +141,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 g.drawImage(backgroundImage, currX, currY, null);
             }
         }
+        board[0][0].put(new Piece(true, path+ RESOURCES_WKING_PNG));
         
     }
 

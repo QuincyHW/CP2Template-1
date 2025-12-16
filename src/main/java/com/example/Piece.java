@@ -17,7 +17,7 @@ public class Piece {
     
     public Piece(boolean isWhite, String img_file) {
         this.color = isWhite;
-        
+         
         try {
             if (this.img == null) {
               this.img = ImageIO.read(getClass().getResource(img_file));
