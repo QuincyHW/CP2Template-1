@@ -1,4 +1,4 @@
-
+package com.example;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
@@ -115,6 +115,7 @@ public class StartMenu implements Runnable {
         
         instr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                
                 JOptionPane.showMessageDialog(startWindow,
                         "To begin a new game, input player names\n" +
                         "next to the pieces. Set the clocks and\n" +
@@ -134,7 +135,9 @@ public class StartMenu implements Runnable {
                 int hh = Integer.parseInt((String) hours.getSelectedItem());
                 int mm = Integer.parseInt((String) minutes.getSelectedItem());
                 int ss = Integer.parseInt((String) seconds.getSelectedItem());
-                
+
+                System.out.println("Starting game with " + bn + " vs " + wn +
+                        " with timer " + hh + ":" + mm + ":" + ss);
                 new GameWindow(bn, wn, hh, mm, ss);
                 startWindow.dispose();
             }

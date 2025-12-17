@@ -1,3 +1,4 @@
+package com.example;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;

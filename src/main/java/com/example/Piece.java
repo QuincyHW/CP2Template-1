@@ -1,4 +1,4 @@
-
+package com.example;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -20,7 +20,8 @@ public class Piece {
          
         try {
             if (this.img == null) {
-              this.img = ImageIO.read(getClass().getResource(img_file));
+              // this.img = ImageIO.read(getClass().getResource(img_file));
+                this.img = ImageIO.read(new File(System.getProperty("user.dir")+img_file));
             }
           } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());

@@ -1,3 +1,4 @@
+package com.example;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,7 +35,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WPAWN_PNG = "wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = "bpawn.png";
 
-    private static final String path = "/src/main/java/com/example/";
+    private static final String path = "/src/main/java/com/example/Pictures/";
 	
 	// Logical and graphical representations of board
 	private final Square[][] board;
@@ -44,7 +45,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private boolean whiteTurn;
 
     //if the player is currently dragging a piece this variable contains it.
-    private Piece currPiece;
+    Piece currPiece;
     private Square fromMoveSquare;
     
     //used to keep track of the x/y coordinates of the mouse.
@@ -76,6 +77,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
 
         initializePieces();
+        
 
         this.setPreferredSize(new Dimension(400, 400));
         this.setMaximumSize(new Dimension(400, 400));
@@ -92,7 +94,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//it's up to you how you wish to arrange your pieces.
     void initializePieces() {
     	
-    	board[0][0].put(new Piece(true, RESOURCES_WKING_PNG));
+    	// board[0][0].put(new Piece(true, path+ RESOURCES_WKING_PNG));
+        
 
     }
 
@@ -114,14 +117,17 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void paintComponent(Graphics g) {
-     Image backgroundImage; 
-     URL imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
+     Image backgroundImage = null; 
+     URL imageUrl = null;
+     if (currPiece != null) {
+      imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
+     }
 
      if (imageUrl != null) {
             // This is the cleanest way to get an AWT Image object from a URL
             backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
         } else {
-            System.err.println("Image resource not found. Check path: /src/main/java/com/example/");
+            System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
         }
     
 
@@ -131,6 +137,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if(sq == fromMoveSquare)
                 	 sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
+                System.out.println("Painting square at " + x + ", " + y);   
                 
             }
         }
@@ -141,8 +148,37 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 g.drawImage(backgroundImage, currX, currY, null);
             }
         }
+        System.out.println("Placing and Creating new piece");
         board[0][0].put(new Piece(true, path+ RESOURCES_WKING_PNG));
+        System.out.println("Trying to paint piece");
+        board[0][0].paintComponent(g);
+        System.out.println("Painting piece at " + 0 + ", " + 0);
+         board[0][1].put(new Piece(true, path+ RESOURCES_WQUEEN_PNG));
+        board[0][2].put(new Piece(true, path+ RESOURCES_WROOK_PNG));
+        board[0][3].put(new Piece(true, path+ RESOURCES_WBISHOP_PNG));
+        board[0][4].put(new Piece(true, path+ RESOURCES_WKNIGHT_PNG));
+        board[0][5].put(new Piece(true, path+ RESOURCES_WPAWN_PNG));
         
+        board[0][0].paintComponent(g);
+        board[0][1].paintComponent(g);
+        board[0][2].paintComponent(g);  
+        board[0][3].paintComponent(g);
+        board[0][4].paintComponent(g);
+        board[0][5].paintComponent(g);
+
+        board[1][0].put(new Piece(true, path+ RESOURCES_BKING_PNG));
+        board[1][1].put(new Piece(true, path+ RESOURCES_BQUEEN_PNG));
+        board[1][2].put(new Piece(true, path+ RESOURCES_BROOK_PNG));
+        board[1][3].put(new Piece(true, path+ RESOURCES_BBISHOP_PNG));
+        board[1][4].put(new Piece(true, path+ RESOURCES_BKNIGHT_PNG));
+        board[1][5].put(new Piece(true, path+ RESOURCES_BPAWN_PNG));
+
+        board[0][0].paintComponent(g);
+        board[1][1].paintComponent(g);
+        board[1][2].paintComponent(g);  
+        board[1][3].paintComponent(g);
+        board[1][4].paintComponent(g);
+        board[1][5].paintComponent(g);
     }
 
     @Override
